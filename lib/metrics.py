@@ -8,6 +8,15 @@ Why add mask to MAPE and MARE?
 import numpy as np
 import torch
 
+def masked_mae_loss(scaler, mask_value):
+    def loss(preds, labels):
+        if scaler:
+            preds = scaler.inverse_transform(preds)
+            labels = scaler.inverse_transform(labels)
+        mae = MAE_torch(pred=preds, true=labels, mask_value=mask_value)
+        return mae
+    return loss
+
 def MAE_torch(pred, true, mask_value=None):
     if mask_value != None:
         mask = torch.gt(true, mask_value)
@@ -219,4 +228,3 @@ if __name__ == '__main__':
     pred = torch.Tensor([1, 2, 3,4])
     true = torch.Tensor([2, 1, 4,5])
     print(All_Metrics(pred, true, None, None))
-

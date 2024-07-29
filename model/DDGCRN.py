@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model.DDGCRNCell import DDGCRNCell
+from src.DDGCRN.model.DDGCRNCell import DDGCRNCell
 class DGCRM(nn.Module):
     def __init__(self, node_num, dim_in, dim_out, cheb_k, embed_dim, num_layers=1):
         super(DGCRM, self).__init__()
